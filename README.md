@@ -103,12 +103,12 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 [3]: https://stackoverflow.com/questions/tagged/lightningchart
 [4]: https://www.arction.com/support-services/
 
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/axis.html
-[AxisTickStrategies]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/globals.html#axistickstrategies
-[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/chartxy.html
-[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/globals.html#colorrgba
-[HorizontalLegendBox]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/globals.html#legendboxbuilders.horizontallegendbox
-[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/solidfill.html
-[SolidLine]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/solidline.html
-[UIOrigins]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/globals.html#uiorigins
-[VerticalLegendBox]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/http://lyra/lcjsDocs/v1.0.0/globals.html#legendboxbuilders.verticallegendbox
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/axis.html
+[AxisTickStrategies]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/globals.html#axistickstrategies
+[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/chartxy.html
+[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/globals.html#colorrgba
+[HorizontalLegendBox]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/globals.html#legendboxbuilders.horizontallegendbox
+[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/solidfill.html
+[SolidLine]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/solidline.html
+[UIOrigins]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/globals.html#uiorigins
+[VerticalLegendBox]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/http://lyra/lcjsDocs/v1.0.0/globals.html#legendboxbuilders.verticallegendbox
