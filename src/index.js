@@ -1,4 +1,4 @@
-/**
+/*
  * LightningChartJS example that showcases usage of Dashboard for trading.
  */
 // Import LightningChartJS
