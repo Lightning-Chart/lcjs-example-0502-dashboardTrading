@@ -33,9 +33,9 @@ const dateOrigin = new Date(2018, 0, 1)
 // Chart that contains the OHLC candle stick series and Bollinger band
 const chartOHLC = db.createChartXY({
     columnIndex: 0,
-    rowIndex: 0, 
-    columnSpan: 1, 
-    rowSpan: 1, 
+    rowIndex: 0,
+    columnSpan: 1,
+    rowSpan: 1,
     chartXYOptions: { defaultAxisXTickStrategy: AxisTickStrategies.DateTime(dateOrigin) }
 })
     .setTitle('Trading dashboard')
@@ -137,9 +137,9 @@ createOHLCGenerator()
 //#region
 const chartVolume = db.createChartXY({
     columnIndex: 0,
-    rowIndex: 1, 
-    columnSpan: 1, 
-    rowSpan: 1, 
+    rowIndex: 1,
+    columnSpan: 1,
+    rowSpan: 1,
     chartXYOptions: { defaultAxisXTickStrategy: AxisTickStrategies.DateTime(dateOrigin) }
 })
 
