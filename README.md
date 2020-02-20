@@ -26,7 +26,7 @@ The chart contains:
 - Mountains area ( ***AreaRange series*** ) to represent the difference between high & low values
 - Mountains area ( ***Area series*** ) to represent the volume
 
-#### Legend
+## Legend
 
 Legend in this example is a UI object embedded to the chart using predefined simple builders for horizontal or vertical layout.
 
