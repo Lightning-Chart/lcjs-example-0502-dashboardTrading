@@ -76,15 +76,15 @@ The whole chart with contained series, the whole dashboard with contained charts
 
 ## API Links
 
-* XY cartesian chart: [ChartXY]
-* Axis: [Axis]
-* Axis tick strategies: [AxisTickStrategies]
-* Horizontal legend box: [HorizontalLegendBox]
-* Vertical legend box: [VerticalLegendBox]
-* UI position origins: [UIOrigins]
-* Solid FillStyle: [SolidFill]
-* RGBA color factory: [ColorRGBA]
-* Solid LineStyle: [SolidLine]
+* [XY cartesian chart]
+* [Axis]
+* [Axis tick strategies]
+* [Horizontal legend box]
+* [Vertical legend box]
+* [UI position origins]
+* [Solid FillStyle]
+* [RGBA color factory]
+* [Solid LineStyle]
 
 
 ## Support
@@ -108,13 +108,13 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © Arction Ltd 2009-2020. All rights reserved.
 
 
-[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/chartxy.html
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/axis.html
-[AxisTickStrategies]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#axistickstrategies
-[HorizontalLegendBox]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#legendboxbuilders.horizontallegendbox
-[VerticalLegendBox]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#legendboxbuilders.verticallegendbox
-[UIOrigins]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#uiorigins
-[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/solidfill.html
-[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#colorrgba
-[SolidLine]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/solidline.html
+[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/chartxy.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/axis.html
+[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#axistickstrategies
+[Horizontal legend box]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#legendboxbuilders.horizontallegendbox
+[Vertical legend box]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#legendboxbuilders.verticallegendbox
+[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#uiorigins
+[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/solidfill.html
+[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#colorrgba
+[Solid LineStyle]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/solidline.html
 

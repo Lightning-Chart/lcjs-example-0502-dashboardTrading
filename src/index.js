@@ -13,7 +13,8 @@ const {
     SolidLine,
     emptyLine,
     ColorRGBA,
-    UIOrigins
+    UIOrigins,
+    Themes
 } = lcjs
 
 // Import data-generator from 'xydata'-library.
@@ -24,6 +25,7 @@ const {
 
 // Create dashboard to house two charts
 const db = lightningChart().Dashboard({
+    // theme: Themes.dark 
     numberOfRows: 2,
     numberOfColumns: 1
 })
@@ -35,11 +37,19 @@ const chartOHLC = db.createChartXY({
     columnIndex: 0,
     rowIndex: 0,
     columnSpan: 1,
-    rowSpan: 1,
-    chartXYOptions: { defaultAxisXTickStrategy: AxisTickStrategies.DateTime(dateOrigin) }
+    rowSpan: 1
 })
+// Use DateTime TickStrategy with custom date origin for X Axis.
+chartOHLC
+    .getDefaultAxisX()
+    .setTickStrategy(
+        AxisTickStrategies.DateTime,
+        (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin)
+    )
+// Modify Chart.
+chartOHLC
     .setTitle('Trading dashboard')
-    // Style AutoCursor using preset.
+    //Style AutoCursor.
     .setAutoCursor(cursor => {
         cursor.disposeTickMarkerY()
         cursor.setGridStrokeYStyle(emptyLine)
@@ -139,10 +149,17 @@ const chartVolume = db.createChartXY({
     columnIndex: 0,
     rowIndex: 1,
     columnSpan: 1,
-    rowSpan: 1,
-    chartXYOptions: { defaultAxisXTickStrategy: AxisTickStrategies.DateTime(dateOrigin) }
+    rowSpan: 1
 })
-
+// Use DateTime TickStrategy with custom date origin for X Axis.
+chartVolume
+    .getDefaultAxisX()
+    .setTickStrategy(
+        AxisTickStrategies.DateTime,
+        (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin)
+    )
+// Modify Chart.
+chartVolume
     .setTitle('Volume')
     .setPadding({ right: 40 })
 // Create a LegendBox as part of the chart.
@@ -154,10 +171,20 @@ const legendBoxVolume = chartVolume.addLegendBox(LegendBoxBuilders.HorizontalLeg
 const volumeAxisY = chartVolume.getDefaultAxisY()
     .setTitle('USD')
     // Modify TickStyle to hide gridstrokes.
-    .setTickStyle(visibleTicks => visibleTicks
-        .setGridStrokeStyle(emptyLine)
+    .setTickStrategy(
+        // Base TickStrategy that should be styled.
+        AxisTickStrategies.Numeric,
+        // Modify the the tickStyles through a mutator.
+        (tickStrat) => tickStrat
+            // Modify the Major tickStyle to not render the grid strokes.
+            .setMajorTickStyle(
+                tickStyle => tickStyle.setGridStrokeStyle(emptyLine)
+            )
+            // Modify the Minor tickStyle to not render the grid strokes.
+            .setMinorTickStyle(
+                tickStyle => tickStyle.setGridStrokeStyle(emptyLine)
+            )
     )
-
 const volumeFillStyle = new SolidFill().setColor(ColorRGBA(0, 128, 128, 60))
 const volumeStrokeStyle = new SolidLine()
     .setFillStyle(volumeFillStyle.setA(255))
