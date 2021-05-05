@@ -40,7 +40,7 @@ Legend in this example is a UI object embedded to the chart using predefined sim
 - Vertical legend
 
     ```javascript
-    // Create a horizontal legend embedded to the chart.
+    // Create a vertical legend embedded to the chart.
     const legend = chart.addLegendBox( LegendBoxBuilders.VerticalLegendBox )
     ```
 
@@ -51,7 +51,6 @@ The whole chart with contained series, the whole dashboard with contained charts
     ```javascript
     // Attach the chart and its series to legend.
     // Creates a group with charts.
-    // Return attached entries.
     const entries = legend.add( chart )
     ```
 
@@ -60,7 +59,6 @@ The whole chart with contained series, the whole dashboard with contained charts
     ```javascript
     // Attach the dashboard with charts with series to legend.
     // Creates groups of charts with series.
-    // Return attached entries.
     const entries = legend.add( dashboard )
     ```
 
@@ -69,7 +67,6 @@ The whole chart with contained series, the whole dashboard with contained charts
     ```javascript
     // Attach the individual series as a group to legend.
     // Creates a group from a single series.
-    // Return attached entry.
     const entries = legend.add( series )
     ```
 
@@ -108,13 +105,13 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © Arction Ltd 2009-2020. All rights reserved.
 
 
-[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/classes/chartxy.html
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/classes/axis.html
-[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/globals.html#axistickstrategies
-[Horizontal legend box]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/globals.html#legendboxbuilders.horizontallegendbox
-[Vertical legend box]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/globals.html#legendboxbuilders.verticallegendbox
-[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/globals.html#uiorigins
-[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/classes/solidfill.html
-[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/globals.html#colorrgba
-[Solid LineStyle]: https://www.arction.com/lightningchart-js-api-documentation/v2.2.0/classes/solidline.html
+[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/classes/chartxy.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/classes/axis.html
+[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/globals.html#axistickstrategies
+[Horizontal legend box]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/globals.html#legendboxbuilders.horizontallegendbox
+[Vertical legend box]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/globals.html#legendboxbuilders.verticallegendbox
+[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/globals.html#uiorigins
+[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/classes/solidfill.html
+[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/globals.html#colorrgba
+[Solid LineStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.0/classes/solidline.html
 

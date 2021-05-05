@@ -61,9 +61,7 @@ chartOHLC
 db.setRowHeight(0, 2)
 
 // Create a LegendBox for Candle-Stick and Bollinger Band
-const legendBoxOHLC = chartOHLC.addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
-    .setPosition({ x: 100, y: 100 })
-    .setOrigin(UIOrigins.RightTop)
+const legendBoxOHLC = chartOHLC.addLegendBox(LegendBoxBuilders.VerticalLegendBox)
 
 // Define function which sets Y axis intervals nicely.
 let setViewNicely
@@ -163,9 +161,7 @@ chartVolume
     .setTitle('Volume')
     .setPadding({ right: 40 })
 // Create a LegendBox as part of the chart.
-const legendBoxVolume = chartVolume.addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
-    .setPosition({ x: 100, y: 100 })
-    .setOrigin(UIOrigins.RightTop)
+const legendBoxVolume = chartVolume.addLegendBox(LegendBoxBuilders.VerticalLegendBox)
 
 // Create Y-axis for series (view is set manually).
 const volumeAxisY = chartVolume.getDefaultAxisY()
@@ -206,16 +202,9 @@ createProgressiveTraceGenerator()
 //#endregion
 
 
-// Add series to LegendBox and style entries.
-const entries1 = legendBoxOHLC.add(chartOHLC)
-entries1[0]
-    .setButtonOnFillStyle(areaRangeStroke.getFillStyle())
-    .setButtonOnStrokeStyle(emptyLine)
-
-const entries2 = legendBoxVolume.add(chartVolume)
-entries2[0]
-    .setButtonOnFillStyle(volumeStrokeStyle.getFillStyle())
-    .setButtonOnStrokeStyle(emptyLine)
+// Add series to LegendBox.
+legendBoxOHLC.add(chartOHLC)
+legendBoxVolume.add(chartVolume)
 
 setViewNicely = () => {
     const yBoundsStock = { min: areaRange.getYMin(), max: areaRange.getYMax(), range: areaRange.getYMax() - areaRange.getYMin() }
@@ -225,7 +214,7 @@ setViewNicely = () => {
     stockAxisY.setInterval(yBoundsStock.min - yBoundsStock.range * .33, yBoundsStock.max)
 }
 
-stock.setResultTableFormatter((builder, series, segment) => {
+stock.setCursorResultTableFormatter((builder, series, segment) => {
     return builder
         .addRow(series.getName())
         .addRow(series.axisX.formatValue(segment.getPosition()))
@@ -235,7 +224,7 @@ stock.setResultTableFormatter((builder, series, segment) => {
         .addRow('Close ' + segment.getClose().toFixed(2))
 })
 
-volume.setResultTableFormatter((builder, series, position, high, low) => {
+volume.setCursorResultTableFormatter((builder, series, position, high, low) => {
     return builder
         .addRow(series.getName())
         .addRow(series.axisX.formatValue(position))
