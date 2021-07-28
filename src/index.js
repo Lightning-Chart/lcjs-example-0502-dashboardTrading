@@ -9,11 +9,7 @@ const {
     lightningChart,
     AxisTickStrategies,
     LegendBoxBuilders,
-    SolidFill,
-    SolidLine,
     emptyLine,
-    ColorRGBA,
-    UIOrigins,
     Themes
 } = lcjs
 
@@ -25,7 +21,7 @@ const {
 
 // Create dashboard to house two charts
 const db = lightningChart().Dashboard({
-    // theme: Themes.dark 
+    // theme: Themes.darkGold 
     numberOfRows: 2,
     numberOfColumns: 1
 })
@@ -62,6 +58,11 @@ db.setRowHeight(0, 2)
 
 // Create a LegendBox for Candle-Stick and Bollinger Band
 const legendBoxOHLC = chartOHLC.addLegendBox(LegendBoxBuilders.VerticalLegendBox)
+    // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
+    .setAutoDispose({
+        type: 'max-width',
+        maxWidth: 0.30,
+    })
 
 // Define function which sets Y axis intervals nicely.
 let setViewNicely
@@ -74,43 +75,16 @@ const stockAxisY = chartOHLC.getDefaultAxisY()
     .setScrollStrategy(undefined)
     .setTitle('USD')
 // Add series.
-const areaRangeFill = new SolidFill().setColor(ColorRGBA(100, 149, 237, 50))
-const areaRangeStroke = new SolidLine()
-    .setFillStyle(new SolidFill().setColor(ColorRGBA(100, 149, 237)))
-    .setThickness(1)
 const areaRange = chartOHLC.addAreaRangeSeries({ yAxis: stockAxisY })
     .setName('Bollinger band')
-    .setHighFillStyle(areaRangeFill)
-    .setLowFillStyle(areaRangeFill)
-    .setHighStrokeStyle(areaRangeStroke)
-    .setLowStrokeStyle(areaRangeStroke)
     .setMouseInteractions(false)
     .setCursorEnabled(false)
 
 const stockFigureWidth = 5.0
-const borderBlack = new SolidLine().setFillStyle(new SolidFill().setColor(ColorRGBA(0, 0, 0))).setThickness(1.0)
-const fillBrightRed = new SolidFill().setColor(ColorRGBA(255, 0, 0))
-const fillDimRed = new SolidFill().setColor(ColorRGBA(128, 0, 0))
-const fillBrightGreen = new SolidFill().setColor(ColorRGBA(0, 255, 0))
-const fillDimGreen = new SolidFill().setColor(ColorRGBA(0, 128, 0))
 const stock = chartOHLC.addOHLCSeries({ yAxis: stockAxisY })
     .setName('Candle-Sticks')
     // Setting width of figures
     .setFigureWidth(stockFigureWidth)
-    // Styling positive candlestick
-    .setPositiveStyle(candlestick => candlestick
-        // Candlestick body fill style
-        .setBodyFillStyle(fillBrightGreen)
-        // Candlestick body fill style
-        .setBodyStrokeStyle(borderBlack)
-        // Candlestick stroke style
-        .setStrokeStyle((strokeStyle) => strokeStyle.setFillStyle(fillDimGreen))
-    )
-    .setNegativeStyle(candlestick => candlestick
-        .setBodyFillStyle(fillBrightRed)
-        .setBodyStrokeStyle(borderBlack)
-        .setStrokeStyle((strokeStyle) => strokeStyle.setFillStyle(fillDimRed))
-    )
 
 // Make function that handles adding OHLC segments to series.
 const add = (ohlc) => {
@@ -123,7 +97,6 @@ const add = (ohlc) => {
             position: ohlc[0],
             high: ohlc[2] - areaOffset,
             low: ohlc[3] + areaOffset,
-
         }
     )
 }
@@ -162,33 +135,17 @@ chartVolume
     .setPadding({ right: 40 })
 // Create a LegendBox as part of the chart.
 const legendBoxVolume = chartVolume.addLegendBox(LegendBoxBuilders.VerticalLegendBox)
+    // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
+    .setAutoDispose({
+        type: 'max-width',
+        maxWidth: 0.30,
+    })
 
 // Create Y-axis for series (view is set manually).
 const volumeAxisY = chartVolume.getDefaultAxisY()
     .setTitle('USD')
-    // Modify TickStyle to hide gridstrokes.
-    .setTickStrategy(
-        // Base TickStrategy that should be styled.
-        AxisTickStrategies.Numeric,
-        // Modify the the tickStyles through a mutator.
-        (tickStrat) => tickStrat
-            // Modify the Major tickStyle to not render the grid strokes.
-            .setMajorTickStyle(
-                tickStyle => tickStyle.setGridStrokeStyle(emptyLine)
-            )
-            // Modify the Minor tickStyle to not render the grid strokes.
-            .setMinorTickStyle(
-                tickStyle => tickStyle.setGridStrokeStyle(emptyLine)
-            )
-    )
-const volumeFillStyle = new SolidFill().setColor(ColorRGBA(0, 128, 128, 60))
-const volumeStrokeStyle = new SolidLine()
-    .setFillStyle(volumeFillStyle.setA(255))
-    .setThickness(1)
 const volume = chartVolume.addAreaSeries({ yAxis: volumeAxisY })
     .setName('Volume')
-    .setFillStyle(volumeFillStyle)
-    .setStrokeStyle(volumeStrokeStyle)
 
 createProgressiveTraceGenerator()
     .setNumberOfPoints(990)

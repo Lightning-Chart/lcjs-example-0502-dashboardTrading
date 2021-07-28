@@ -105,13 +105,13 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © Arction Ltd 2009-2020. All rights reserved.
 
 
-[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/classes/chartxy.html
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/classes/axis.html
-[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/globals.html#axistickstrategies
-[Horizontal legend box]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/globals.html#legendboxbuilders.horizontallegendbox
-[Vertical legend box]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/globals.html#legendboxbuilders.verticallegendbox
-[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/globals.html#uiorigins
-[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/classes/solidfill.html
-[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/globals.html#colorrgba
-[Solid LineStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.0.1/classes/solidline.html
+[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/chartxy.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/axis.html
+[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#axistickstrategies
+[Horizontal legend box]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#legendboxbuilders.horizontallegendbox
+[Vertical legend box]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#legendboxbuilders.verticallegendbox
+[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#uiorigins
+[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/solidfill.html
+[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#colorrgba
+[Solid LineStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/solidline.html
 
