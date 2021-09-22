@@ -74,6 +74,9 @@ let setViewNicely
 const stockAxisY = chartOHLC.getDefaultAxisY()
     .setScrollStrategy(undefined)
     .setTitle('USD')
+    // Synchronize left margins of the stacked charts by assigning a static Y Axis thickness for both.
+    .setThickness(80)
+
 // Add series.
 const areaRange = chartOHLC.addAreaRangeSeries({ yAxis: stockAxisY })
     .setName('Bollinger band')
@@ -144,6 +147,8 @@ const legendBoxVolume = chartVolume.addLegendBox(LegendBoxBuilders.VerticalLegen
 // Create Y-axis for series (view is set manually).
 const volumeAxisY = chartVolume.getDefaultAxisY()
     .setTitle('USD')
+    // Synchronize left margins of the stacked charts by assigning a static Y Axis thickness for both.
+    .setThickness(80)
 const volume = chartVolume.addAreaSeries({ yAxis: volumeAxisY })
     .setName('Volume')
 
