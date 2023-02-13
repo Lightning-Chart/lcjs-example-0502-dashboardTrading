@@ -4,27 +4,22 @@
 // Import LightningChartJS
 const lcjs = require('@arction/lcjs')
 
+// Import xydata
+const xydata = require('@arction/xydata')
+
 // Extract required parts from LightningChartJS.
-const {
-    lightningChart,
-    AxisTickStrategies,
-    LegendBoxBuilders,
-    emptyLine,
-    Themes
-} = lcjs
+const { lightningChart, AxisTickStrategies, LegendBoxBuilders, emptyLine, SolidFill, SolidLine, Themes } = lcjs
 
 // Import data-generator from 'xydata'-library.
-const {
-    createOHLCGenerator,
-    createProgressiveTraceGenerator
-} = require('@arction/xydata')
+const { createOHLCGenerator, createProgressiveTraceGenerator } = xydata
 
 // Create dashboard to house two charts
 const db = lightningChart().Dashboard({
-    // theme: Themes.darkGold 
+    // theme: Themes.darkGold
     numberOfRows: 2,
-    numberOfColumns: 1
+    numberOfColumns: 1,
 })
+const theme = db.getTheme()
 
 // Decide on an origin for DateTime axis.
 const dateOrigin = new Date(2018, 0, 1)
@@ -33,21 +28,16 @@ const chartOHLC = db.createChartXY({
     columnIndex: 0,
     rowIndex: 0,
     columnSpan: 1,
-    rowSpan: 1
+    rowSpan: 1,
 })
 // Use DateTime TickStrategy with custom date origin for X Axis.
-chartOHLC
-    .getDefaultAxisX()
-    .setTickStrategy(
-        AxisTickStrategies.DateTime,
-        (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin)
-    )
+chartOHLC.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
 // Modify Chart.
 chartOHLC
     .setTitle('Trading dashboard')
     //Style AutoCursor.
-    .setAutoCursor(cursor => {
-        cursor.disposeTickMarkerY()
+    .setAutoCursor((cursor) => {
+        cursor.setTickMarkerYVisible(false)
         cursor.setGridStrokeYStyle(emptyLine)
     })
     .setPadding({ right: 40 })
@@ -57,11 +47,12 @@ chartOHLC
 db.setRowHeight(0, 2)
 
 // Create a LegendBox for Candle-Stick and Bollinger Band
-const legendBoxOHLC = chartOHLC.addLegendBox(LegendBoxBuilders.VerticalLegendBox)
+const legendBoxOHLC = chartOHLC
+    .addLegendBox(LegendBoxBuilders.VerticalLegendBox)
     // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
     .setAutoDispose({
         type: 'max-width',
-        maxWidth: 0.30,
+        maxWidth: 0.3,
     })
 
 // Define function which sets Y axis intervals nicely.
@@ -71,20 +62,26 @@ let setViewNicely
 //#region
 
 // Get Y-axis for series (view is set manually).
-const stockAxisY = chartOHLC.getDefaultAxisY()
+const stockAxisY = chartOHLC
+    .getDefaultAxisY()
     .setScrollStrategy(undefined)
     .setTitle('USD')
     // Synchronize left margins of the stacked charts by assigning a static Y Axis thickness for both.
     .setThickness(80)
 
 // Add series.
-const areaRange = chartOHLC.addAreaRangeSeries({ yAxis: stockAxisY })
+const areaRange = chartOHLC
+    .addAreaRangeSeries({ yAxis: stockAxisY })
+    .setLowFillStyle(theme.examples.bollingerFillStyle)
+    .setHighFillStyle(theme.examples.bollingerFillStyle)
+    .setLowStrokeStyle(new SolidLine({ thickness: 1, fillStyle: theme.examples.bollingerBorderFillStyle }))
+    .setHighStrokeStyle(new SolidLine({ thickness: 1, fillStyle: theme.examples.bollingerBorderFillStyle }))
     .setName('Bollinger band')
-    .setMouseInteractions(false)
     .setCursorEnabled(false)
 
 const stockFigureWidth = 5.0
-const stock = chartOHLC.addOHLCSeries({ yAxis: stockAxisY })
+const stock = chartOHLC
+    .addOHLCSeries({ yAxis: stockAxisY })
     .setName('Candle-Sticks')
     // Setting width of figures
     .setFigureWidth(stockFigureWidth)
@@ -95,13 +92,11 @@ const add = (ohlc) => {
     stock.add(ohlc)
     // AreaRange looks better if it extends a bit further than the actual OHLC values.
     const areaOffset = 0.2
-    areaRange.add(
-        {
-            position: ohlc[0],
-            high: ohlc[2] - areaOffset,
-            low: ohlc[3] + areaOffset,
-        }
-    )
+    areaRange.add({
+        position: ohlc[0],
+        high: ohlc[2] - areaOffset,
+        low: ohlc[3] + areaOffset,
+    })
 }
 
 // Generate some static data.
@@ -110,7 +105,7 @@ createOHLCGenerator()
     .setDataFrequency(24 * 60 * 60 * 1000)
     .generate()
     .toPromise()
-    .then(data => {
+    .then((data) => {
         data.forEach(add)
         setViewNicely()
     })
@@ -123,46 +118,39 @@ const chartVolume = db.createChartXY({
     columnIndex: 0,
     rowIndex: 1,
     columnSpan: 1,
-    rowSpan: 1
+    rowSpan: 1,
 })
 // Use DateTime TickStrategy with custom date origin for X Axis.
-chartVolume
-    .getDefaultAxisX()
-    .setTickStrategy(
-        AxisTickStrategies.DateTime,
-        (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin)
-    )
+chartVolume.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
 // Modify Chart.
-chartVolume
-    .setTitle('Volume')
-    .setPadding({ right: 40 })
+chartVolume.setTitle('Volume').setPadding({ right: 40 })
 // Create a LegendBox as part of the chart.
-const legendBoxVolume = chartVolume.addLegendBox(LegendBoxBuilders.VerticalLegendBox)
+const legendBoxVolume = chartVolume
+    .addLegendBox(LegendBoxBuilders.VerticalLegendBox)
     // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
     .setAutoDispose({
         type: 'max-width',
-        maxWidth: 0.30,
+        maxWidth: 0.3,
     })
 
 // Create Y-axis for series (view is set manually).
-const volumeAxisY = chartVolume.getDefaultAxisY()
+const volumeAxisY = chartVolume
+    .getDefaultAxisY()
     .setTitle('USD')
     // Synchronize left margins of the stacked charts by assigning a static Y Axis thickness for both.
     .setThickness(80)
-const volume = chartVolume.addAreaSeries({ yAxis: volumeAxisY })
-    .setName('Volume')
+const volume = chartVolume.addAreaSeries({ yAxis: volumeAxisY }).setName('Volume')
 
 createProgressiveTraceGenerator()
     .setNumberOfPoints(990)
     .generate()
     .toPromise()
-    .then(data => {
-        volume.add(data.map(point => ({ x: point.x * 2.4 * 60 * 60 * 1000, y: Math.abs(point.y) * 10 })))
+    .then((data) => {
+        volume.add(data.map((point) => ({ x: point.x * 2.4 * 60 * 60 * 1000, y: Math.abs(point.y) * 10 })))
         setViewNicely()
     })
 
 //#endregion
-
 
 // Add series to LegendBox.
 legendBoxOHLC.add(chartOHLC)
@@ -172,8 +160,8 @@ setViewNicely = () => {
     const yBoundsStock = { min: areaRange.getYMin(), max: areaRange.getYMax(), range: areaRange.getYMax() - areaRange.getYMin() }
     const yBoundsVolume = { min: volume.getYMin(), max: volume.getYMax(), range: volume.getYMax() - volume.getYMin() }
     // Set Y axis intervals so that series don't overlap and volume is under stocks.
-    volumeAxisY.setInterval(yBoundsVolume.min, yBoundsVolume.max)
-    stockAxisY.setInterval(yBoundsStock.min - yBoundsStock.range * .33, yBoundsStock.max)
+    volumeAxisY.setInterval({ start: yBoundsVolume.min, end: yBoundsVolume.max, stopAxisAfter: false })
+    stockAxisY.setInterval({ start: yBoundsStock.min - yBoundsStock.range * 0.33, end: yBoundsStock.max, stopAxisAfter: false })
 }
 
 stock.setCursorResultTableFormatter((builder, series, segment) => {
