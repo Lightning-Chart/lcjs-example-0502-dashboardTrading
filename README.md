@@ -21,6 +21,9 @@ The demo can be used as an example or a seed project. Local execution requires t
 
 This example shows the creation of a simple trading dashboard with multiple individual charts on a single pane.
 
+**Please note that using LightningChart JS for Trading use cases requires a special license agreement.**
+For more information, please [contact us](https://lightningchart.com/contact/).
+
 The chart contains:
 
 -   Japanese candlesticks ( **_OHLC series_** ) to represent the market price data
@@ -106,13 +109,13 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © LightningChart Ltd 2009-2022. All rights reserved.
 
 
-[XY cartesian chart]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/ChartXY.html
-[Axis]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/Axis.html
-[Axis tick strategies]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/AxisTickStrategies.html
-[Horizontal legend box]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/LegendBoxBuilders.html
-[Vertical legend box]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/LegendBoxBuilders.html
-[UI position origins]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/UIOrigins.html
-[Solid FillStyle]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/SolidFill.html
-[RGBA color factory]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/functions/ColorRGBA.html
-[Solid LineStyle]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/SolidLine.html
+[XY cartesian chart]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/ChartXY.html
+[Axis]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/Axis.html
+[Axis tick strategies]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/AxisTickStrategies.html
+[Horizontal legend box]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/LegendBoxBuilders.html
+[Vertical legend box]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/LegendBoxBuilders.html
+[UI position origins]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/UIOrigins.html
+[Solid FillStyle]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/SolidFill.html
+[RGBA color factory]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/functions/ColorRGBA.html
+[Solid LineStyle]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/SolidLine.html
 

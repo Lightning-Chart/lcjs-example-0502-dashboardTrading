@@ -23,6 +23,8 @@ const theme = db.getTheme()
 
 // Decide on an origin for DateTime axis.
 const dateOrigin = new Date(2018, 0, 1)
+const dateOriginTime = dateOrigin.getTime()
+
 // Chart that contains the OHLC candle stick series and Bollinger band
 const chartOHLC = db.createChartXY({
     columnIndex: 0,
@@ -99,12 +101,27 @@ const add = (ohlc) => {
     })
 }
 
+const dataFrequency = 2.4 * 60 * 60 * 1000
+
 // Generate some static data.
 createOHLCGenerator()
     .setNumberOfPoints(100)
-    .setDataFrequency(24 * 60 * 60 * 1000)
     .generate()
     .toPromise()
+    // Map x datapoints to start from date origin with the frequency of dataFrequency
+    .then((data) =>
+        data.map((innerArray) => {
+            innerArray[0] = dateOriginTime + innerArray[0] * dataFrequency
+            return innerArray
+        }),
+    )
+    // Shift the data by dateOriginTime
+    .then((data) =>
+        data.map((innerArray) => {
+            innerArray[0] = innerArray[0] - dateOriginTime
+            return innerArray
+        }),
+    )
     .then((data) => {
         data.forEach(add)
         setViewNicely()
@@ -145,8 +162,22 @@ createProgressiveTraceGenerator()
     .setNumberOfPoints(990)
     .generate()
     .toPromise()
+    // Map random generated data to start from a particular datewith the frequency of dataFrequency
+    .then((data) =>
+        data.map((point) => ({
+            x: dateOriginTime + point.x * dataFrequency,
+            y: Math.abs(point.y) * 10,
+        })),
+    )
+    // shift the data by dateOriginTime
+    .then((data) =>
+        data.map((p) => ({
+            x: p.x - dateOriginTime,
+            y: p.y,
+        })),
+    )
     .then((data) => {
-        volume.add(data.map((point) => ({ x: point.x * 2.4 * 60 * 60 * 1000, y: Math.abs(point.y) * 10 })))
+        volume.add(data)
         setViewNicely()
     })
 
