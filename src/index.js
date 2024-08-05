@@ -2,10 +2,10 @@
  * LightningChartJS example that showcases usage of Dashboard for trading.
  */
 // Import LightningChartJS
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 // Import xydata
-const xydata = require('@arction/xydata')
+const xydata = require('@lightningchart/xydata')
 
 // Extract required parts from LightningChartJS.
 const { lightningChart, AxisTickStrategies, LegendBoxBuilders, emptyLine, SolidFill, SolidLine, Themes } = lcjs
@@ -41,7 +41,7 @@ chartOHLC.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime, (tickSt
 chartOHLC
     .setTitle('Trading dashboard')
     //Style AutoCursor.
-    .setAutoCursor((cursor) => {
+    .setCursor((cursor) => {
         cursor.setTickMarkerYVisible(false)
         cursor.setGridStrokeYStyle(emptyLine)
     })
@@ -197,21 +197,3 @@ setViewNicely = () => {
     volumeAxisY.setInterval({ start: yBoundsVolume.min, end: yBoundsVolume.max, stopAxisAfter: false })
     stockAxisY.setInterval({ start: yBoundsStock.min - yBoundsStock.range * 0.33, end: yBoundsStock.max, stopAxisAfter: false })
 }
-
-stock.setCursorResultTableFormatter((builder, series, segment) => {
-    return builder
-        .addRow(series.getName())
-        .addRow(series.axisX.formatValue(segment.getPosition()))
-        .addRow('Open ' + segment.getOpen().toFixed(2))
-        .addRow('High ' + segment.getHigh().toFixed(2))
-        .addRow('Low ' + segment.getLow().toFixed(2))
-        .addRow('Close ' + segment.getClose().toFixed(2))
-})
-
-volume.setCursorResultTableFormatter((builder, series, position, high, low) => {
-    return builder
-        .addRow(series.getName())
-        .addRow(series.axisX.formatValue(position))
-        .addRow('Value ' + Math.round(high))
-        .addRow('Base ' + Math.round(low))
-})
