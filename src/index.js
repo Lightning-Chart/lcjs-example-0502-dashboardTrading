@@ -45,7 +45,6 @@ chartOHLC
         cursor.setTickMarkerYVisible(false)
         cursor.setGridStrokeYStyle(emptyLine)
     })
-    .setPadding({ right: 40 })
 
 // The top chart should have 66% of view height allocated to it. By giving the first row a height of 2, the relative
 // height of the row becomes 2/3 of the whole view (default value for row height / column width is 1)
@@ -143,7 +142,7 @@ const chartVolume = db.createChartXY({
 // Use DateTime TickStrategy with custom date origin for X Axis.
 chartVolume.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
 // Modify Chart.
-chartVolume.setTitle('Volume').setPadding({ right: 40 })
+chartVolume.setTitle('Volume')
 // Create a LegendBox as part of the chart.
 const legendBoxVolume = chartVolume
     .addLegendBox(LegendBoxBuilders.VerticalLegendBox)
