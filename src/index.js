@@ -8,7 +8,7 @@ const lcjs = require('@lightningchart/lcjs')
 const xydata = require('@lightningchart/xydata')
 
 // Extract required parts from LightningChartJS.
-const { lightningChart, AxisTickStrategies, LegendBoxBuilders, emptyLine, SolidFill, SolidLine, Themes } = lcjs
+const { lightningChart, AxisTickStrategies, emptyLine, SolidFill, SolidLine, Themes } = lcjs
 
 // Import data-generator from 'xydata'-library.
 const { createOHLCGenerator, createProgressiveTraceGenerator } = xydata
@@ -49,15 +49,6 @@ chartOHLC
 // The top chart should have 66% of view height allocated to it. By giving the first row a height of 2, the relative
 // height of the row becomes 2/3 of the whole view (default value for row height / column width is 1)
 db.setRowHeight(0, 2)
-
-// Create a LegendBox for Candle-Stick and Bollinger Band
-const legendBoxOHLC = chartOHLC
-    .addLegendBox(LegendBoxBuilders.VerticalLegendBox)
-    // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
-    .setAutoDispose({
-        type: 'max-width',
-        maxWidth: 0.3,
-    })
 
 // Define function which sets Y axis intervals nicely.
 let setViewNicely
@@ -143,14 +134,6 @@ const chartVolume = db.createChartXY({
 chartVolume.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
 // Modify Chart.
 chartVolume.setTitle('Volume')
-// Create a LegendBox as part of the chart.
-const legendBoxVolume = chartVolume
-    .addLegendBox(LegendBoxBuilders.VerticalLegendBox)
-    // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
-    .setAutoDispose({
-        type: 'max-width',
-        maxWidth: 0.3,
-    })
 
 // Create Y-axis for series (view is set manually).
 const volumeAxisY = chartVolume
@@ -179,15 +162,11 @@ createProgressiveTraceGenerator()
         })),
     )
     .then((data) => {
-        volume.add(data)
+        volume.appendJSON(data)
         setViewNicely()
     })
 
 //#endregion
-
-// Add series to LegendBox.
-legendBoxOHLC.add(chartOHLC)
-legendBoxVolume.add(chartVolume)
 
 setViewNicely = () => {
     const yBoundsStock = { min: areaRange.getYMin(), max: areaRange.getYMax(), range: areaRange.getYMax() - areaRange.getYMin() }
