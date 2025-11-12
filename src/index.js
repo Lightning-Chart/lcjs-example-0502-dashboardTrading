@@ -14,7 +14,7 @@ const { lightningChart, AxisTickStrategies, emptyLine, SolidFill, SolidLine, The
 const { createOHLCGenerator, createProgressiveTraceGenerator } = xydata
 
 // Create dashboard to house two charts
-// NOTE: Using `Dashboard` is no longer recommended for new applications. Find latest recommendations here: https://lightningchart.com/js-charts/docs/basic-topics/grouping-charts/
+// NOTE: Using `Dashboard` is no longer recommended for new applications. Find latest recommendations here: https://lightningchart.com/js-charts/docs/more-guides/grouping-charts/
 const db = lightningChart({
             resourcesBaseUrl: new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'resources/',
         }).Dashboard({
