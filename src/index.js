@@ -9,7 +9,7 @@ const lcjs = require('@lightningchart/lcjs')
 const xydata = require('@lightningchart/xydata')
 
 // Extract required parts from LightningChartJS.
-const { lightningChart, AxisTickStrategies, emptyLine, SolidFill, SolidLine, Themes } = lcjs
+const { lightningChart, AxisTickStrategies, emptyLine, SolidFill, emptyFill, SolidLine, Themes } = lcjs
 
 // Import data-generator from 'xydata'-library.
 const { createOHLCGenerator, createProgressiveTraceGenerator } = xydata
@@ -29,9 +29,7 @@ textRenderer: window.lcjsSmallView ? lcjs.htmlTextRenderer : undefined,
 })
 const theme = db.getTheme()
 
-// Decide on an origin for DateTime axis.
-const dateOrigin = new Date(2018, 0, 1)
-const dateOriginTime = dateOrigin.getTime()
+const dateStart = Date.UTC(2024, 0, 1)
 
 // Chart that contains the OHLC candle stick series and Bollinger band
 const chartOHLC = db.createChartXY({
@@ -40,8 +38,7 @@ const chartOHLC = db.createChartXY({
     columnSpan: 1,
     rowSpan: 1,
 })
-// Use DateTime TickStrategy with custom date origin for X Axis.
-chartOHLC.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
+chartOHLC.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime)
 // Modify Chart.
 chartOHLC
     .setTitle('Trading dashboard')
@@ -72,27 +69,22 @@ const stockAxisY = chartOHLC
 // Add series.
 const areaRange = chartOHLC
     .addAreaRangeSeries({ yAxis: stockAxisY })
-    .setLowFillStyle(theme.examples.bollingerFillStyle)
-    .setHighFillStyle(theme.examples.bollingerFillStyle)
-    .setLowStrokeStyle(new SolidLine({ thickness: 1, fillStyle: theme.examples.bollingerBorderFillStyle }))
-    .setHighStrokeStyle(new SolidLine({ thickness: 1, fillStyle: theme.examples.bollingerBorderFillStyle }))
+    .setPointFillStyle(emptyFill)
+    .setAreaFillStyle(theme.examples.bollingerFillStyle)
+    .setStrokeStyle(new SolidLine({ thickness: 1, fillStyle: theme.examples.bollingerBorderFillStyle }))
     .setName('Bollinger band')
     .setCursorEnabled(false)
 
 const stockFigureWidth = 5.0
-const stock = chartOHLC
-    .addOHLCSeries({ yAxis: stockAxisY })
-    .setName('Candle-Sticks')
-    // Setting width of figures
-    .setFigureWidth(stockFigureWidth)
+const stock = chartOHLC.addOHLCSeries({ yAxis: stockAxisY }).setName('Candle-Sticks').setFigureWidth(stockFigureWidth)
 
 // Make function that handles adding OHLC segments to series.
 const add = (ohlc) => {
     // ohlc is equal to [x, open, high, low, close]
-    stock.add(ohlc)
+    stock.add([ohlc])
     // AreaRange looks better if it extends a bit further than the actual OHLC values.
     const areaOffset = 0.2
-    areaRange.add({
+    areaRange.appendSample({
         position: ohlc[0],
         high: ohlc[2] - areaOffset,
         low: ohlc[3] + areaOffset,
@@ -109,17 +101,11 @@ createOHLCGenerator()
     // Map x datapoints to start from date origin with the frequency of dataFrequency
     .then((data) =>
         data.map((innerArray) => {
-            innerArray[0] = dateOriginTime + innerArray[0] * dataFrequency
+            innerArray[0] = dateStart + innerArray[0] * dataFrequency
             return innerArray
         }),
     )
-    // Shift the data by dateOriginTime
-    .then((data) =>
-        data.map((innerArray) => {
-            innerArray[0] = innerArray[0] - dateOriginTime
-            return innerArray
-        }),
-    )
+    // Shift the dat
     .then((data) => {
         data.forEach(add)
         setViewNicely()
@@ -136,7 +122,7 @@ const chartVolume = db.createChartXY({
     rowSpan: 1,
 })
 // Use DateTime TickStrategy with custom date origin for X Axis.
-chartVolume.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
+chartVolume.getDefaultAxisX().setTickStrategy(AxisTickStrategies.DateTime)
 // Modify Chart.
 chartVolume.setTitle('Volume')
 
@@ -155,15 +141,8 @@ createProgressiveTraceGenerator()
     // Map random generated data to start from a particular datewith the frequency of dataFrequency
     .then((data) =>
         data.map((point) => ({
-            x: dateOriginTime + point.x * dataFrequency,
+            x: dateStart + point.x * dataFrequency,
             y: Math.abs(point.y) * 10,
-        })),
-    )
-    // shift the data by dateOriginTime
-    .then((data) =>
-        data.map((p) => ({
-            x: p.x - dateOriginTime,
-            y: p.y,
         })),
     )
     .then((data) => {
